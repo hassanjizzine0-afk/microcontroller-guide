@@ -783,12 +783,3 @@ Total: 1-3 clock cycles
 - [ARM Architecture Reference Manual](https://developer.arm.com/documentation/ddi0487/latest)
 
 ---
-
-## ⭐ Show Your Support
-
-If this guide helped you understand register-level programming, please give it a ⭐!
-```
-
----
-
-**Just copy and paste this into your `README.md` file on GitHub** – it will render perfectly with all ASCII diagrams, tables, and formatting! ✅
