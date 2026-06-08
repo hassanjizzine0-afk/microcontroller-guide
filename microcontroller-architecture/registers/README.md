@@ -20,27 +20,27 @@ This guide explains **register-level programming** — the lowest level of micro
 │                              MICROCONTROLLER                                │
 │                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────┐ │
-│  │                              CPU CORE                                  │ │
-│  │                                                                        │ │
-│  │   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │ │
-│  │   │    ALU      │  │     PC      │  │     SP      │  │    SREG     │ │ │
-│  │   │ (Calculator)│  │ (Program    │  │  (Stack     │  │  (Status    │ │ │
-│  │   │             │  │  Counter)   │  │  Pointer)   │  │  Register)  │ │ │
-│  │   └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘ │ │
-│  │                                                                        │ │
-│  │   ┌────────────────────────────────────────────────────────────────┐  │ │
-│  │   │                    GENERAL PURPOSE REGISTERS                    │  │ │
-│  │   │                                                                  │  │ │
-│  │   │   AVR:  R0    R1    R2    R3    ...    R30    R31              │  │ │
-│  │   │   ARM:  R0    R1    R2    R3    ...    R14    R15 (PC)          │  │ │
-│  │   │                                                                  │  │ │
-│  │   │   ↑                                                              │  │ │
-│  │   │   └── CPU works ONLY with these for calculations!               │  │ │
-│  │   └────────────────────────────────────────────────────────────────┘  │ │
+│  │                              CPU CORE                                   │ │
+│  │                                                                         │ │
+│  │   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │  │
+│  │   │    ALU      │  │     PC      │  │     SP      │  │    SREG     │ │  │
+│  │   │ (Calculator)│  │ (Program    │  │  (Stack     │  │  (Status    │ │  │
+│  │   │             │  │  Counter)   │  │  Pointer)   │  │  Register)  │ │  │
+│  │   └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘ │  │
+│  │                                                                         │ 
+│  │   ┌────────────────────────────────────────────────────────────────┐    │ 
+│  │   │                    GENERAL PURPOSE REGISTERS                   │    │
+│  │   │                                                                │    │ 
+│  │   │   AVR:  R0    R1    R2    R3    ...    R30    R31              │    │
+│  │   │   ARM:  R0    R1    R2    R3    ...    R14    R15 (PC)         │    │ 
+│  │   │                                                                │    │ 
+│  │   │   ↑                                                            │    │ 
+│  │   │   └── CPU works ONLY with these for calculations!              │    │ 
+│  │   └────────────────────────────────────────────────────────────────┘    │
 │  └───────────────────────────────────────────────────────────────────────┘ │
-│                                    │                                        │
-│                    ┌───────────────┼───────────────┐                        │
-│                    ▼               ▼               ▼                        │
+│                                    │                                       │
+│                    ┌───────────────┼───────────────┐                       │
+│                    ▼               ▼               ▼                        
 │  ┌────────────────────────┐ ┌─────────────┐ ┌────────────────────────────┐ │
 │  │     FLASH Memory       │ │  RAM Memory │ │      I/O Registers         │ │
 │  │     (Program Code)     │ │ (Variables) │ │  (PORTB, DDRB, TIMER, ADC) │ │
@@ -92,21 +92,20 @@ Most microcontrollers (AVR, ARM, PIC) are **load-store architectures** (also cal
 ┌─────────────────────────────────────────────────────────────────┐
 │                    LOAD-STORE ARCHITECTURE                      │
 │                                                                 │
-│   Only two instruction types can access memory:                │
+│   Only two instruction types can access memory:                 │
 │                                                                 │
-│   ┌─────────┐     ┌─────────┐     ┌─────────────────────────┐  │
+│   ┌─────────┐     ┌─────────┐     ┌─────────────────────────┐   │
 │   │  LOAD   │     │  STORE  │     │  Arithmetic Instructions │  │
 │   │         │     │         │     │  (ADD, SUB, MUL, AND,    │  │
 │   │ RAM →   │     │ Register│     │   OR, XOR, CMP, etc.)    │  │
-│   │ Register│     │ → RAM   │     │                         │  │
+│   │ Register│     │ → RAM   │     │                         │   │
 │   └─────────┘     └─────────┘     │  Work ONLY with registers│  │
-│                                   └─────────────────────────┘  │
+│                                   └─────────────────────────┘   │
 │                                                                 │
 │   Example:                                                      │
-│   LOAD R1, [100]    ; RAM → R1                                 │
-│   LOAD R2, [200]    ; RAM → R2                                 │
-│   ADD  R3, R1, R2   ; R1 + R2 → R3 (registers only!)          │
-│   STORE [300], R3   ; R3 → RAM                                 │
+│   LOAD R1, [100]    ; RAM → R1                                  │
+│   LOAD R2, [200]    ; RAM → R2                                  │
+│   ADD  R3, R1, R2   ; R1 + R2 → R3 (registers only!)            │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -116,16 +115,16 @@ You cannot control physical pins through RAM or Flash. Dedicated **I/O registers
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    WHY I/O REGISTERS EXIST                       │
+│                    WHY I/O REGISTERS EXIST                      │
 │                                                                 │
-│   Physical Pin PB5 ──┬──► Register DDRB (Direction Control)    │
+│   Physical Pin PB5 ──┬──► Register DDRB (Direction Control)     │
 │                      │                                          │
 │                      ├──► Register PORTB (Output Control)       │
 │                      │                                          │
 │                      └──► Register PINB (Input Reading)         │
 │                                                                 │
-│   There is NO WAY to control the pin through RAM or Flash.     │
-│   The ONLY path is through these special registers.            │
+│   There is NO WAY to control the pin through RAM or Flash.      │
+│   The ONLY path is through these special registers.             │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
