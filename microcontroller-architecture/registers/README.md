@@ -734,11 +734,10 @@ Total: 1-3 clock cycles
 
 ---
 
-## ✅ Final Answer to Your Question
 
-> **"Is a register the place where I save code (instructions)?"**
 
-**NO.** Instructions (your compiled code) are stored in **FLASH** memory.
+
+
 
 **Registers** are the CPU's **WORKSPACE**:
 - **General-purpose registers** (R0-R31) hold **data** for calculations
@@ -746,6 +745,12 @@ Total: 1-3 clock cycles
 - **Program Counter (PC)** holds the **address** of the next instruction
 - **Stack Pointer (SP)** holds the **address** of the stack top
 - **Status Register (SREG)** holds **condition flags** from operations
+
+
+
+
+
+
 
 ### The Ultimate Analogy:
 
